@@ -1,6 +1,6 @@
 var app = angular.module('judicatorApp', []);
 
-app.controller('registrationController', function($scope) {
+app.controller('authController', function($scope) {
     $scope.user = {
         'username': '',
         'password' : '',
@@ -10,6 +10,12 @@ app.controller('registrationController', function($scope) {
         'email': ''
     };
     $scope.errMsg = '';
+
+    $scope.login = function() {
+        // DB QUERY FOR CREDENTIALS
+        alert('USERNAME: ' + $scope.user.username + '\nPASSWORD: ' +  $scope.user.password);
+    };
+
     $scope.register = function() {
         // DB QUERY FOR CREDENTIALS
         alert('USERNAME: ' + $scope.user.username + '\nPASSWORD: ' +  $scope.user.password);

@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body ng-app="judicatorApp">
-<div class="container" ng-controller="registrationController">
+<div class="container" ng-controller="authController">
+    <div class="row">
+        <h3 class="col s6">REGISTER</h3>
+    </div>
     <div class="row">
         <form class="col s12" ng-submit="register()">
             <div class="row">
                 <div class="input-field col s6">
-                    <input required placeholder="First Name" id="first_name" type="text" class="validate" ng-model="user.firstName">
+                    <input required id="first_name" type="text" class="validate" ng-model="user.firstName">
                     <label for="first_name">First Name</label>
                 </div>
                 <div class="input-field col s6">
