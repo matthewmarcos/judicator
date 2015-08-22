@@ -11,7 +11,8 @@ var auth = require('./routes/auth')(passport);
 var mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/judicator-test');
+mongoose.connect('mongodb://localhost/judicator');
+require('./models/models');
 
 var app = express();
 
