@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+    <title>Judicator</title>
+    <script src="/javascripts/angular.min.js"></script>
+    <script src="/javascripts/angular-route.min.js"></script>
+    <script src="/javascripts/judicatorApp.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/materialize.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/materialize.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper navigation container">
+        <a href="/" class="brand-logo">Judger</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#/register">Register</a></li>
+            <li><a href="#/login">Login</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container row" ng-app="judicatorApp">
+<!-- Print all your partials here -->
+<div ng-view></div>
+</div>
+</body>
 </html>
