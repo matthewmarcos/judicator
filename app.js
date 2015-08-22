@@ -6,13 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var api = require('./routes/api');
 var auth = require('./routes/auth')(passport);
 var mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/judicator');
+mongoose.connect('mongodb://localhost/judicator-test');
 require('./models/models');
+var api = require('./routes/api');
+
 
 var app = express();
 

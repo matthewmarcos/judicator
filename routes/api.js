@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var Post = mongoose.model('Post');
 
 router.use(function(req, res, next) {
     if(req.method === "GET") {
@@ -17,36 +19,63 @@ router.use(function(req, res, next) {
 router.route('/posts')
     // Return all posts
     .get(function(req, res, next) {
-        res.send({
-            message: 'get all posts'
+        Post.find(function(err, posts) {
+            if(err) {
+                return res.send(500, err);
+            }
+            return res.send(posts);
         });
     })
     // Create a new post
     .post(function(req, res, next) {
-        res.send({
-            message: 'create new post'
+        console.log('Here at posts!');
+        var post = new Post();
+        post.content = req.body.content;
+        post.author = req.body.author;
+        post.save(function(err, post) {
+            if (err){
+                console.log('Error in Saving post: '+err);
+                return res.send(500, err);
+            }
+            console.log(post.author + ' Post succesful');
+            return res.json(post);
         });
     });
 
 router.route('/posts/:id')
     // Return post
     .get(function(req, res, next) {
-        res.send({
-            message: 'Get request to ' + req.params.id
+        console.log('gett request at ' + req.body.params);
+        Post.findById(req.params.id, function(err, post){
+            if(err)
+                res.send(err);
+            res.json(post);
         });
     })
-    // Create a new post
+    // Edit post with whatever is in the parameters
     .put(function(req, res, next) {
-        res.send({
-            message: 'Update existing post' + req.params.id
-        });
+        Post.findById(req.params.id, function(err, post){
+            if(err)
+                res.send(err);
+
+            post.author = req.body.author;
+            post.content = req.body.content;
+
+            post.save(function(err, post){
+                if(err)
+                   res.send(err);
+                res.json(post);
+            });
+       });
     })
     .delete(function(req, res, next) {
-        res.send({
-            message: 'delete existing post' + req.params.id
+        Post.remove({
+            _id: req.params.id
+        }, function(err) {
+            if (err)
+                res.send(err);
+            res.json("deleted :(");
         });
     });
-
-
 
 module.exports = router;

@@ -1,5 +1,14 @@
-// FOR MODELS
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var postSchema = new mongoose.Schema({
+    content: String,
+    author: String, //hash created from password
+    timeStamp: {
+        type: Date,
+        default: Date.now
+    }
+});
 
 var userSchema = new mongoose.Schema({
     username: String,
@@ -12,16 +21,6 @@ var userSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
-var postSchema = new mongoose.Schema({
-    content: String,
-    author: String, //hash created from password
-    timeStamp: {
-        type: Date,
-        default: Date.now
-    }
-});
-
 // Create User and post model
 mongoose.model('Post', postSchema);
 mongoose.model('User', userSchema);
