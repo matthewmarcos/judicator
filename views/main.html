@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Judicator</title>
+    <script src="javascripts/angular.min.js"></script>
+    <script src="javascripts/judicatorApp.js"></script>
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/materialize.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/materialize.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body ng-app="judicatorApp">
+    <div id='main' class="container row" ng-controller="mainController">
+        <div class="col s9 offset-s2">
+            <div class="clearfix">
+                <!-- FORM ROW here! -->
+                <div class="row">
+                    <form ng-Submit="post()" id="form">
+                        <div class="input-field">
+                            <input required id="inputName" type="text" class="validate" ng-model="newPost.author">
+                            <label for="inputName">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea required id="userContent" class="materialize-textarea" ng-model="newPost.content"></textarea>
+                            <label for="userContent">State your Case...</label>
+                        </div>
+                        <button class="btn waves-effect right waves-light" type="submit" name="action">Submit</button>
+                    </form>
+                </div>
+                <!-- END OF FORM ROW -->
+
+                <!-- POSTS ROW here! -->
+                <div id="post-stream row">
+                    <h4>Cases</h4>
+                    <ul class="collection col s12">
+                        <li class="post collection-item row" ng-repeat="post in posts | orderBy:'timeStamp':true">
+                            <!-- Learn how to iterate through javascript variables with angular -->
+                            <div class="row">
+                                <b class="col s6">{{post.author}}</b>
+                                <small class="col s2 right">{{post.timeStamp | date:"h:mma 'on' MMM d, yyyy"}}</small>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <p class="post-text col s12">{{post.content}}</p>
+                            </div>
+                            <!-- <small>Posted by @{{post.author}}</small> -->
+                            <!-- <small class="right">{{post.timeStamp | date:"h:mm:ssa 'on' MMM d, yyyy"}}</small> -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- END OF POSTS ROW -->
+
+                <!-- FOOTER ROW STARTS HERE -->
+                    <!-- footer content -->
+                <!-- END OF FOOTER ROW -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
