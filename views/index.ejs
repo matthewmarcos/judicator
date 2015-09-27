@@ -10,17 +10,23 @@
     <link rel="stylesheet" href="/stylesheets/materialize.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-<body>
-<nav>
+<body ng-app="judicatorApp">
+<nav class="teal lighten-2">
     <div class="nav-wrapper navigation container">
-        <a href="/" class="brand-logo">Judger</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#/register">Register</a></li>
-            <li><a href="#/login">Login</a></li>
-        </ul>
+        <div class="row">
+            <a href="#/" class="brand-logo col s3">Judger</a>
+            <div class="right">
+                <ul id="nav-mobile" class= "hide-on-med-and-down">
+                    <li ng-hide="authenticated"><a class="col s1" href="#/login">Login</a></li>
+                    <li ng-hide="authenticated"><a class="col s1" href="#/register">Register</a></li>
+                    <li ng-show="authenticated"><a class="col s1" href="#" ng-click="signout()">Logout</a></li>
+                </ul>
+                <span ng-show="authenticated" class="col s6">Signed in as {{currentUser}}</span>
+            </div>
+        </div>
     </div>
 </nav>
-<div class="container row" ng-app="judicatorApp">
+<div class="container row">
 <!-- Print all your partials here -->
 <div ng-view></div>
 </div>

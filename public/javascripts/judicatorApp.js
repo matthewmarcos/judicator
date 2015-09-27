@@ -1,6 +1,17 @@
-var app = angular.module('judicatorApp', ['ngRoute']);
+var app = angular.module('judicatorApp', ['ngRoute']).run(function($rootScope, $http) {
+    //ui router
+    //rootScope is global
+    $rootScope.authenticated = false;
+    $rootScope.currentUser = '';
+    $rootScope.signout = function() {
+        $http.get('/auth/signout'); //sana nalang gumana. No callback
+        $rootScope.authenticated = false;
+        $rootScope.currentUser = '';
+    };
+});
 
 app.config(function($routeProvider){
+    // $routeProvide.html5(true);
   $routeProvider
     //the timeline display
     .when('/', {
@@ -19,7 +30,7 @@ app.config(function($routeProvider){
     });
 });
 
-app.controller('authController', function($scope) {
+app.controller('authController', function($scope, $rootScope, $http, $location) {
     $scope.user = {
         'username': '',
         'password' : '',
@@ -32,14 +43,23 @@ app.controller('authController', function($scope) {
 
     $scope.login = function() {
         // DB QUERY FOR CREDENTIALS
-        $scope.errMsg = 'Logged in as' + $scope.user.username;
+        $http.post('/auth/login', $scope.user).success(function(data) {
+            $rootScope.authenticated = true;
+            $rootScope.currentUser = data.user.username;
+            $location.path('/');
+        });
         // alert('USERNAME: ' + $scope.user.username + '\nPASSWORD: ' +  $scope.user.password);
     };
 
     $scope.register = function() {
         // DB QUERY FOR CREDENTIALS
-        $scope.errMsg = 'Registered as' + $scope.user.username;
-        // alert('USERNAME: ' + $scope.user.username + '\nPASSWORD: ' +  $scope.user.password);
+        //form checking
+        alert('registering');
+        $http.post('/auth/signup', $scope.user).success(function(data) {
+            $rootScope.authenticated = true;
+            $rootScope.currentUser = data.user.username;
+            $location.path('/');
+        });
     };
 });
 
